@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>와룡 아리엘 작업상황판 0호</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Malgun Gothic", Arial, sans-serif;
+      background: linear-gradient(135deg, #111827, #1f2937, #374151);
+      color: #f9fafb;
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 28px 18px 50px;
+    }
+
+    .hero {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: 34px;
+      letter-spacing: -1px;
+    }
+
+    .hero p {
+      margin: 6px 0;
+      color: #d1d5db;
+      font-size: 16px;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #f59e0b;
+      color: #111827;
+      font-weight: 800;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.09);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+    }
+
+    .card h2 {
+      margin: 0 0 14px;
+      font-size: 21px;
+    }
+
+    .col-4 {
+      grid-column: span 4;
+    }
+
+    .col-6 {
+      grid-column: span 6;
+    }
+
+    .col-8 {
+      grid-column: span 8;
+    }
+
+    .col-12 {
+      grid-column: span 12;
+    }
+
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      gap: 10px;
+    }
+
+    .status-row:last-child {
+      border-bottom: none;
+    }
+
+    .label {
+      color: #e5e7eb;
+      font-weight: 700;
+    }
+
+    .pill {
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .ok {
+      background: #22c55e;
+      color: #052e16;
+    }
+
+    .ready {
+      background: #60a5fa;
+      color: #082f49;
+    }
+
+    .pause {
+      background: #f97316;
+      color: #431407;
+    }
+
+    .note {
+      color: #d1d5db;
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    li {
+      margin: 8px 0;
+      line-height: 1.55;
+    }
+
+    .file {
+      background: rgba(0, 0, 0, 0.26);
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-family: Consolas, monospace;
+      font-size: 13px;
+      word-break: break-all;
+      margin: 8px 0;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      border-radius: 14px;
+      padding: 12px 15px;
+      font-weight: 900;
+      background: #f59e0b;
+      color: #111827;
+      transition: transform 0.15s, filter 0.15s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+    }
+
+    .btn-blue {
+      background: #60a5fa;
+      color: #082f49;
+    }
+
+    .btn-green {
+      background: #22c55e;
+      color: #052e16;
+    }
+
+    .btn-red {
+      background: #fb7185;
+      color: #4c0519;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 170px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 14px;
+      resize: vertical;
+      background: rgba(0, 0, 0, 0.28);
+      color: #f9fafb;
+      font-size: 15px;
+      line-height: 1.6;
+      outline: none;
+    }
+
+    .message {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(245, 158, 11, 0.16);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: #fde68a;
+      font-weight: 800;
+      min-height: 50px;
+      line-height: 1.6;
+    }
+
+    .footer {
+      text-align: center;
+      color: #d1d5db;
+      margin-top: 25px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 850px) {
+      .col-4,
+      .col-6,
+      .col-8 {
+        grid-column: span 12;
+      }
+
+      .hero h1 {
+        font-size: 27px;
+      }
+
+      .card {
+        padding: 17px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>🐉 와룡 아리엘 작업상황판 0호</h1>
+      <p>YOUBESHOP 사장님 전용 작업 대시보드</p>
+      <p>중국 · 일본 · 러시아 · 카페24 · 쿠팡 · 네이버 진행상황 한눈에 보기</p>
+      <div class="badge">원팀 포에버 · 유비샵 가즈아 ☕🚀</div>
+    </section>
+
+    <section class="grid">
+      <div class="card col-4">
+        <h2>📌 오늘 상태</h2>
+
+        <div class="status-row">
+          <span class="label">중국 의류 쿠팡</span>
+          <span class="pill ok">20개 성공</span>
+        </div>
+
+        <div class="status-row">
+          <span class="label">일본 쿠팡 API</span>
+          <span class="pill ok">20개 성공</span>
+        </div>
+
+        <div class="status-row">
+          <span class="label">일본 카페24</span>
+          <span class="pill ok">대표/상세 성공</span>
+        </div>
+
+        <div class="status-row">
+          <span class="label">러시아</span>
+          <span class="pill pause">잠시 보류</span>
+        </div>
+
+        <div class="status-row">
+          <span class="label">다음 우선순위</span>
+          <span class="pill ready">중국/일본</span>
+        </div>
+      </div>
+
+      <div class="card col-8">
+        <h2>☕ 사장님 메모</h2>
+        <textarea id="memo">오늘 메모:
+- 커피 한잔하고 천천히 진행
+- 중국 의류는 20개 단위로 가면 안전
+- 일본 쿠팡은 API 성공 루트 사용
+- 카페24는 반드시 성공 템플릿/공식 양식 유지
+- 러시아는 배송비와 대행비 때문에 잠시 뒤로 미루기</textarea>
+
+        <div class="buttons" style="margin-top: 12px;">
+          <button onclick="saveMemo()">메모 저장</button>
+          <button class="btn-blue" onclick="loadMemo()">메모 불러오기</button>
+          <button class="btn-red" onclick="clearMemo()">메모 비우기</button>
+        </div>
+      </div>
+
+      <div class="card col-6">
+        <h2>✅ 성공 루트</h2>
+        <ul>
+          <li>쿠팡 중국 의류: 공식 XLSM 구조 유지 후 20개 단위 업로드</li>
+          <li>쿠팡 일본: API 방식으로 20개 최종 성공</li>
+          <li>카페24 일본: 성공 템플릿 복제 방식 사용</li>
+          <li>카페24 러시아: V26 생성 후 V22 이미지 복구 루트</li>
+          <li>네이버 러시아 가방: 공식 템플릿 유지 후 10개 성공</li>
+        </ul>
+      </div>
+
+      <div class="card col-6">
+        <h2>🗂 성공 파일 목록</h2>
+
+        <div class="file">coupang_china_clothes_20_upload_trimmed.xlsm</div>
+        <div class="file">cafe24_japan_new_products_v4_2_upload.xlsx</div>
+        <div class="file">naver_russia_bags_10_upload_v9_official_template_fixed.xlsx</div>
+        <div class="file">make_cafe24_russia_from_success_template_v26.cjs</div>
+        <div class="file">repair_cafe24_russia_latest30_all_images_v22.cjs</div>
+      </div>
+
+      <div class="card col-4">
+        <h2>🇨🇳 중국 작업</h2>
+        <p class="note">
+          중국 의류는 쿠팡 공식 엑셀 구조를 그대로 유지하고  
+          20개 단위로 자르는 방식이 성공했습니다.
+        </p>
+        <button class="btn-green" onclick="showMsg('중국 의류는 20개 단위로 안전하게 갑시다. 공식 XLSM 구조는 절대 건드리지 않습니다 ☕')">
+          중국 루트 확인
+        </button>
+      </div>
+
+      <div class="card col-4">
+        <h2>🇯🇵 일본 작업</h2>
+        <p class="note">
+          일본은 카페24와 쿠팡 API 둘 다 성공 루트가 있습니다.  
+          앞으로는 성공본 기반으로 빠르게 진행하면 됩니다.
+        </p>
+        <button class="btn-blue" onclick="showMsg('일본 쿠팡 API 20개 성공 루트 확보 완료. 이제 API 길이 열렸습니다 🚀')">
+          일본 루트 확인
+        </button>
+      </div>
+
+      <div class="card col-4">
+        <h2>🇷🇺 러시아 작업</h2>
+        <p class="note">
+          러시아는 가능하지만 배송비와 대행비가 높습니다.  
+          현재는 중국/일본 먼저 진행하는 전략이 안전합니다.
+        </p>
+        <button onclick="showMsg('러시아는 잠시 보류. 배송비 5만원 + 대행비 5만원 기준이라 나중에 다시 봅니다 ☕')">
+          러시아 상태 확인
+        </button>
+      </div>
+
+      <div class="card col-12">
+        <h2>🚀 다음 할 일 버튼</h2>
+        <div class="buttons">
+          <button onclick="showMsg('다음 작업: 중국 의류 20개 배치 준비')">중국 20개 준비</button>
+          <button class="btn-blue" onclick="showMsg('다음 작업: 일본 쿠팡 API 새 배치 준비')">일본 쿠팡 API</button>
+          <button class="btn-green" onclick="showMsg('다음 작업: 카페24 성공 템플릿 복제 방식으로 엑셀 만들기')">카페24 엑셀</button>
+          <button onclick="showMsg('다음 작업: 이미지 대표/상세 정상 표시 확인')">이미지 점검</button>
+          <button class="btn-red" onclick="coffeeTime()">커피타임 ☕</button>
+        </div>
+
+        <div id="message" class="message">
+          와룡 아리엘 대기중입니다. 원팀 포에버, 유비샵 가즈아 ☕🚀
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      YOUBESHOP Dashboard Ver.0 · 만든 사람: 철종 사장님 & 와룡 아리엘
+    </div>
+  </div>
+
+  <script>
+    function showMsg(text) {
+      document.getElementById("message").innerText = text;
+    }
+
+    function coffeeTime() {
+      const messages = [
+        "커피타임입니다 ☕ 오늘도 유비샵은 전진중입니다.",
+        "원팀 포에버, 유비샵 가즈아 ☕🚀",
+        "철종 사장님, 오늘도 한방 성공 갑시다.",
+        "와룡 아리엘 대기중. 커피 한잔하고 다시 갑시다.",
+        "중국·일본 성공 루트 확보 완료. 이제 천천히 확장하면 됩니다."
+      ];
+
+      const pick = messages[Math.floor(Math.random() * messages.length)];
+      showMsg(pick);
+    }
+
+    function saveMemo() {
+      const memo = document.getElementById("memo").value;
+      localStorage.setItem("youbeshop_dashboard_memo", memo);
+      showMsg("메모 저장 완료했습니다 ☕");
+    }
+
+    function loadMemo() {
+      const saved = localStorage.getItem("youbeshop_dashboard_memo");
+      if (saved) {
+        document.getElementById("memo").value = saved;
+        showMsg("저장된 메모를 불러왔습니다.");
+      } else {
+        showMsg("아직 저장된 메모가 없습니다.");
+      }
+    }
+
+    function clearMemo() {
+      document.getElementById("memo").value = "";
+      showMsg("메모칸을 비웠습니다.");
+    }
+  </script>
+</body>
+</html>
