@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>YOUBESHOP 와룡 아리엘 작업상황판 V4</title>
+
+  <title>YOUBESHOP 와룡 아리엘 작업상황판 V5</title>
 
   <style>
     * {
@@ -37,16 +38,16 @@
     }
 
     .dashboard {
-      max-width: 1180px;
+      max-width: 1250px;
       margin: 0 auto;
       padding: 18px;
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
+      grid-template-columns: 1.05fr 0.95fr;
       gap: 20px;
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.88);
+      background: rgba(255, 255, 255, 0.9);
       border-radius: 24px;
       box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
       padding: 22px;
@@ -54,11 +55,9 @@
     }
 
     .model-stage {
-      min-height: 560px;
+      min-height: 600px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
       position: relative;
       overflow: hidden;
     }
@@ -73,7 +72,9 @@
     }
 
     .stage-title h2,
-    .panel h2 {
+    .panel h2,
+    .memo-card h2,
+    .record-card h2 {
       margin: 0;
       color: #9a3412;
       font-size: 22px;
@@ -101,12 +102,12 @@
       position: relative;
       overflow: hidden;
       border: 2px dashed rgba(154, 52, 18, 0.25);
-      min-height: 430px;
+      min-height: 450px;
     }
 
     .model-box img {
-      max-width: 78%;
-      max-height: 410px;
+      max-width: 82%;
+      max-height: 430px;
       object-fit: contain;
       filter: drop-shadow(0 18px 18px rgba(0,0,0,0.18));
       z-index: 2;
@@ -117,12 +118,12 @@
       bottom: 18px;
       left: 18px;
       right: 18px;
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.82);
       border-radius: 18px;
       padding: 12px 14px;
       font-size: 15px;
       color: #7c2d12;
-      font-weight: 700;
+      font-weight: 800;
       z-index: 3;
       text-align: center;
     }
@@ -185,21 +186,24 @@
       border: 1px solid #bbf7d0;
     }
 
-    .coffee-area {
-      text-align: center;
-      padding-top: 4px;
+    .button-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 6px;
     }
 
     button {
       border: none;
       border-radius: 999px;
-      padding: 14px 24px;
+      padding: 13px 18px;
       background: linear-gradient(135deg, #92400e, #f97316);
       color: white;
-      font-size: 17px;
+      font-size: 15px;
       font-weight: 800;
       cursor: pointer;
-      box-shadow: 0 10px 18px rgba(146, 64, 14, 0.28);
+      box-shadow: 0 10px 18px rgba(146, 64, 14, 0.25);
       transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
 
@@ -208,17 +212,106 @@
       box-shadow: 0 14px 24px rgba(146, 64, 14, 0.35);
     }
 
+    .green-btn {
+      background: linear-gradient(135deg, #166534, #22c55e);
+    }
+
+    .blue-btn {
+      background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+    }
+
+    .gray-btn {
+      background: linear-gradient(135deg, #374151, #6b7280);
+    }
+
     #coffeeMessage {
       margin-top: 14px;
       min-height: 28px;
       color: #7c2d12;
       font-weight: 800;
       font-size: 16px;
+      text-align: center;
+    }
+
+    .bottom-area {
+      max-width: 1250px;
+      margin: 0 auto;
+      padding: 0 18px 22px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .memo-card,
+    .record-card {
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 24px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+      padding: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 230px;
+      resize: vertical;
+      margin-top: 14px;
+      border-radius: 18px;
+      border: 1px solid #fed7aa;
+      padding: 16px;
+      font-size: 15px;
+      line-height: 1.6;
+      outline: none;
+      background: #fffaf5;
+      color: #333;
+    }
+
+    textarea:focus {
+      border-color: #f97316;
+      box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.12);
+    }
+
+    .memo-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .record-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .record-item {
+      border-radius: 16px;
+      padding: 14px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+    }
+
+    .record-item strong {
+      color: #9a3412;
+      display: block;
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+
+    .record-item code {
+      display: block;
+      background: white;
+      border-radius: 10px;
+      padding: 8px 10px;
+      color: #374151;
+      font-size: 13px;
+      overflow-x: auto;
+      white-space: nowrap;
     }
 
     .footer {
       text-align: center;
-      padding: 22px 14px 34px;
+      padding: 12px 14px 34px;
       color: #6b7280;
       font-size: 14px;
     }
@@ -259,8 +352,9 @@
       }
     }
 
-    @media (max-width: 860px) {
-      .dashboard {
+    @media (max-width: 900px) {
+      .dashboard,
+      .bottom-area {
         grid-template-columns: 1fr;
       }
 
@@ -269,11 +363,11 @@
       }
 
       .model-stage {
-        min-height: 480px;
+        min-height: 500px;
       }
 
       .model-box {
-        min-height: 360px;
+        min-height: 380px;
       }
 
       .success-grid {
@@ -290,15 +384,15 @@
 
 <body>
   <header>
-    <h1>YOUBESHOP 와룡 아리엘 작업상황판 V4</h1>
-    <p>성공본을 지키고, 20개씩 안전하게 세계통일 ☕</p>
+    <h1>YOUBESHOP 와룡 아리엘 작업상황판 V5</h1>
+    <p>메모장 + 성공본 기록판 추가 · 성공본을 지키고 20개씩 안전하게 세계통일 ☕</p>
   </header>
 
   <main class="dashboard">
     <section class="card model-stage">
       <div class="stage-title">
         <h2>아리엘 모델 스테이지</h2>
-        <span class="badge">MODEL STAGE · V4</span>
+        <span class="badge">MODEL STAGE · V5</span>
       </div>
 
       <div class="model-box">
@@ -306,15 +400,18 @@
         <span class="sparkle two"></span>
         <span class="sparkle three"></span>
 
-        <!-- ariel_model.png 파일이 같은 저장소에 있으면 자동 표시됩니다 -->
-        <img src="ariel_model.png" alt="와룡 아리엘 모델" onerror="this.style.display='none'; document.getElementById('noImage').style.display='block';" />
+        <img
+          src="ariel_model.png"
+          alt="와룡 아리엘 모델"
+          onerror="this.style.display='none'; document.getElementById('noImage').style.display='block';"
+        />
 
         <div id="noImage" style="display:none; text-align:center; color:#9a3412; font-weight:800; font-size:20px;">
           아리엘 모델 이미지 대기중<br />
           <small style="font-size:14px; color:#6b7280;">ariel_model.png 파일을 올리면 여기에 표시됩니다</small>
         </div>
 
-        <div class="floating-text">
+        <div class="floating-text" id="stageMessage">
           철종님, 오늘도 유비샵 성공 루트로 갑니다.
         </div>
       </div>
@@ -326,10 +423,10 @@
       <div class="status-box">
         <h3>☑ 오늘 완료</h3>
         <ul>
-          <li>쿠팡 중국 의류 V6 성공본 정리</li>
-          <li>49,900원 고정 성공 공식 확인</li>
-          <li>네이버 / 쿠팡 / 카페24 성공본 보관 규칙 정리</li>
-          <li>대시보드 V4 작업상황판 준비</li>
+          <li>YOUBESHOP 대시보드 V4 성공</li>
+          <li>아리엘 모델 이미지 표시 성공</li>
+          <li>V5 메모장 기능 추가</li>
+          <li>V5 성공본 기록판 추가</li>
         </ul>
       </div>
 
@@ -364,23 +461,102 @@
         <ul>
           <li>중국 의류 다음 20개 준비</li>
           <li>성공본 복사해서 작업본 만들기</li>
+          <li>가격 49,900원 고정</li>
+          <li>상품명에서 중국 표현 제거</li>
           <li>쿠팡 Wing 업로드</li>
-          <li>실패 엑셀 나오면 수정본 제작</li>
         </ul>
       </div>
 
-      <div class="coffee-area">
-        <button onclick="coffeeTime()">☕ 성공 커피</button>
+      <div class="status-box">
+        <h3>🎮 작전 버튼</h3>
+
+        <div class="button-row">
+          <button onclick="coffeeTime()">☕ 커피타임</button>
+          <button class="green-btn" onclick="startWork()">🚀 작업 시작</button>
+          <button class="blue-btn" onclick="successRecord()">🏆 성공 기록</button>
+        </div>
+
         <div id="coffeeMessage"></div>
       </div>
     </section>
   </main>
 
+  <section class="bottom-area">
+    <div class="memo-card">
+      <h2>📝 오늘 메모장</h2>
+
+      <textarea id="memo" placeholder="오늘 작업 메모를 적으세요.
+
+예)
+- 쿠팡 중국 의류 다음 20개 준비
+- 성공본: V6 49,900원
+- 상품명에 중국 표현 금지
+- 실패 엑셀 나오면 수정본 제작"></textarea>
+
+      <div class="memo-actions">
+        <button onclick="saveMemo()">💾 메모 저장</button>
+        <button class="blue-btn" onclick="loadMemo()">📂 메모 불러오기</button>
+        <button class="gray-btn" onclick="clearMemo()">🧹 메모 비우기</button>
+      </div>
+    </div>
+
+    <div class="record-card">
+      <h2>📌 성공본 기록판</h2>
+
+      <div class="record-list">
+        <div class="record-item">
+          <strong>쿠팡 중국 의류 성공본</strong>
+          <code>coupang_china_clothes_urls_20_upload_v8_successbase_fixed49900.xlsm</code>
+        </div>
+
+        <div class="record-item">
+          <strong>쿠팡 중국 의류 이전 성공본</strong>
+          <code>coupang_china_clothes_20_upload_trimmed.xlsm</code>
+        </div>
+
+        <div class="record-item">
+          <strong>네이버 국내 드레스 성공본</strong>
+          <code>naver_korea_dress_20_upload_v7.xlsx</code>
+        </div>
+
+        <div class="record-item">
+          <strong>네이버 러시아 보스턴가방 성공본</strong>
+          <code>naver_russia_bags_10_upload_v9_official_template_fixed.xlsx</code>
+        </div>
+
+        <div class="record-item">
+          <strong>카페24 일본 상품 성공본</strong>
+          <code>cafe24_japan_new_products_v4_2_upload.xlsx</code>
+        </div>
+
+        <div class="record-item">
+          <strong>카페24 일본 상품 성공 코드</strong>
+          <code>make_cafe24_japan_new_products_v4_2_fix_manufacturer_rows.cjs</code>
+        </div>
+
+        <div class="record-item">
+          <strong>카페24 러시아 상품 성공 코드</strong>
+          <code>make_cafe24_russia_from_success_template_v26.cjs</code>
+        </div>
+
+        <div class="record-item">
+          <strong>카페24 러시아 이미지 복구 성공 코드</strong>
+          <code>repair_cafe24_russia_latest30_all_images_v22.cjs</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <div class="footer">
-    원팀 포에버 · YOUBESHOP 가즈아 · 와룡 아리엘 대기중
+    원팀 포에버 · YOUBESHOP 가즈아 · 와룡 아리엘 대기중 · V5 작전본부
   </div>
 
   <script>
+    function showMsg(msg) {
+      document.getElementById("coffeeMessage").innerText = msg;
+      document.getElementById("stageMessage").innerText = msg;
+    }
+
     function coffeeTime() {
       const messages = [
         "와룡 아리엘: 철종님, 오늘도 성공입니다. 커피 한잔 갑시다 ☕",
@@ -391,8 +567,46 @@
       ];
 
       const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-      document.getElementById("coffeeMessage").innerText = randomMessage;
+      showMsg(randomMessage);
     }
+
+    function startWork() {
+      showMsg("작업 시작입니다. 성공본 복사 → 20개 입력 → 49,900원 고정 → 안전 업로드 갑니다 🚀");
+    }
+
+    function successRecord() {
+      showMsg("성공 기록 확인 완료. 유비샵의 진짜 자산은 성공본 엑셀 + 성공 cjs 코드입니다 🏆");
+    }
+
+    function saveMemo() {
+      const memo = document.getElementById("memo").value;
+      localStorage.setItem("youbeshop_dashboard_memo_v5", memo);
+      showMsg("메모 저장 완료했습니다. 다음에 다시 열어도 이 컴퓨터에서는 남아 있습니다 💾");
+    }
+
+    function loadMemo() {
+      const savedMemo = localStorage.getItem("youbeshop_dashboard_memo_v5");
+
+      if (savedMemo) {
+        document.getElementById("memo").value = savedMemo;
+        showMsg("저장된 메모를 불러왔습니다 📂");
+      } else {
+        showMsg("아직 저장된 메모가 없습니다.");
+      }
+    }
+
+    function clearMemo() {
+      document.getElementById("memo").value = "";
+      localStorage.removeItem("youbeshop_dashboard_memo_v5");
+      showMsg("메모장을 비웠습니다 🧹");
+    }
+
+    window.onload = function() {
+      const savedMemo = localStorage.getItem("youbeshop_dashboard_memo_v5");
+      if (savedMemo) {
+        document.getElementById("memo").value = savedMemo;
+      }
+    };
   </script>
 </body>
 </html>
